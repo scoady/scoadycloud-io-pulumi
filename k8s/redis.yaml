@@ -1,0 +1,37 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: apt-mirror
+spec:
+  serviceName: "apt-mirror"
+  selector:
+    matchLabels:
+      app: apt-mirror
+  updateStrategy:
+    type: RollingUpdate
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: apt-mirror
+    spec:
+      containers:
+      - name: apt-mirror
+        image: 662892719773.dkr.ecr.us-west-1.amazonaws.com/scoadycloud-io/apt-mirror:latest
+        resources:
+          limits:
+            memory: 2Gi
+        ports:
+          - containerPort: 80
+        volumeMounts:
+          - name: apt-mirror-data
+            mountPath: "/var/spool/apt-mirror"
+  volumeClaimTemplates:                    
+    - metadata:
+        name: apt-mirror-data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 10Gi

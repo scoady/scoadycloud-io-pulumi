@@ -8,6 +8,18 @@ def deploy_newrelic_agent():
     newrelic_px_deploy_key=config.require("newrelic_px_deploy_key")
     newrelic_license=config.require("newrelic_license")
     newrelic_logging_key=config.require("newrelic_logging_key")
+
+    ebs_csi_driver = Chart(
+        "aws-ebs-csi-driver",
+        ChartOpts(
+            namespace="kube-system",
+            chart="aws-ebs-csi-driver",
+            version="2.4.0",
+            fetch_opts=FetchOpts(
+                repo="https://kubernetes-sigs.github.io/aws-ebs-csi-driver"
+            )
+        )
+    )
     newrelic_agent = Chart(
         "newrelic-nri-bundle",
         ChartOpts(

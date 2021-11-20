@@ -1,0 +1,13 @@
+encryptionsalt: v1:MtJHAJE49Z8=:v1:1xYLZ2dNY7aA+JI8:scICScr61DLM/fdSTYi2tQw/egL+Lw==
+config:
+  aws:profile: scoadycloud
+  aws:region: us-west-1
+  eks:cluster_name: scoadycloud-prod
+  eks:newrelic_license:
+    secure: v1:2u0cC8zucsw8ZJ2j:4RlswPF20+zMJzBulOby6ajKH1BTJG51tdcUhq5NOGt3MiDRskxFteftE52nSwfBWIUyLbxqLWI=
+  eks:newrelic_logging_key:
+    secure: v1:v6qlMrX9n4IygvtK:dQrl2tJB0O2V+aYJKYiXBAMw5+2ekGuyjxzubBpb8+4oZnKZmVOXvNYBmB0YEZXh4iB4cHcPmqU=
+  eks:newrelic_px_api_key:
+    secure: v1:jYuFzK9BiQwEzrf1:a9SjR/HUmsxpItMC4rRq2RBiI8hun2wXryO/GihqoYojJdNkD5JEkelMYuobiIgsI8ULvy569P7/VkY=
+  eks:newrelic_px_deploy_key:
+    secure: v1:jLXLR5j5RHlaWbhM:mZtFcW8ASksxcL107xYi2nxPdWKvk2ercQIqT9GrEvT9bNgQTnnvgC1+56MGZJU7zOf2qLgOWoywQdA=

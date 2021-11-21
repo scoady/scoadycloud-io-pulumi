@@ -1,7 +1,6 @@
 name: Pulumi
 on:
   - pull_request
-  - push
 jobs:
   preview:
     name: Preview
@@ -21,7 +20,8 @@ jobs:
       - run: pip install -r ./eks/requirements.txt
       - uses: pulumi/actions@v3
         with:
-          command: diff
+          command: preview 
+          diff: true
           work-dir: ./eks/
           stack-name: scoadycloud-io-eks-prod
         env:

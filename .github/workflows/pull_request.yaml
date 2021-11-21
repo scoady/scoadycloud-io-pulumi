@@ -24,6 +24,7 @@ jobs:
           diff: true
           work-dir: ./eks/
           stack-name: scoadycloud-io-eks-prod
+          comment-on-pr: true
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
           PULUMI_CONFIG_PASSPHRASE: ${{ secrets.PULUMI_CONFIG_PASSPHRASE }}

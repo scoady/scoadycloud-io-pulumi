@@ -6,7 +6,7 @@ config:
     secure: v1:w44QiHl220vSty9+:xBJIeDq1iAPGPH5tymzoaNPRsP1eFKUc9QI7z25oT2AWaBD5
   eks:aws_secret_key:
     secure: v1:7E7mKmnqy6ElCBZl:5uLlH7vzR2SOiCOUFYH9ytAKwiDZuzfhXwniLa4RHrX+T9KzqtVNvyeON83Q4rZyadXwBsVNymU=
-  eks:cluster_name: scoadycloud-prod
+  eks:cluster_name: scoadycloud-io
   eks:newrelic_license:
     secure: v1:2u0cC8zucsw8ZJ2j:4RlswPF20+zMJzBulOby6ajKH1BTJG51tdcUhq5NOGt3MiDRskxFteftE52nSwfBWIUyLbxqLWI=
   eks:newrelic_logging_key:

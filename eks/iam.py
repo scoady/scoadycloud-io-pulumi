@@ -36,6 +36,12 @@ iam.RolePolicyAttachment(
     policy_arn='arn:aws:iam::aws:policy/AmazonEKSClusterPolicy',
 )
 
+iam.RolePolicyAttachment(
+    f"{eks_cluster_name}-csi-attachment",
+    role=eks_role.id,
+    policy_arn='arn:aws:iam::662892719773:policy/EBS_CSI_DRIVER'
+)
+
 ## Ec2 NodeGroup Role
 
 ec2_role = iam.Role(
@@ -43,6 +49,7 @@ ec2_role = iam.Role(
     assume_role_policy=json.dumps({
         'Version': '2012-10-17',
         'Statement': [
+
             {
                 'Action': 'sts:AssumeRole',
                 'Principal': {
@@ -52,6 +59,8 @@ ec2_role = iam.Role(
                 'Sid': ''
             }
         ],
+    
+    
     }),
 )
 
@@ -60,7 +69,11 @@ iam.RolePolicyAttachment(
     role=ec2_role.id,
     policy_arn='arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy',
 )
-
+iam.RolePolicyAttachment(
+    f"{eks_cluster_name}-ec2-nodepool-csi-attachment",
+    role=ec2_role.id,
+    policy_arn='arn:aws:iam::662892719773:policy/EBS_CSI_DRIVER'
+)
 
 iam.RolePolicyAttachment(
     f"{eks_cluster_name}-eks-cni-policy-attachment",

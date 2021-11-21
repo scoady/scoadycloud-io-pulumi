@@ -50,7 +50,8 @@ for zone in zones.names:
         availability_zone=zone,
         tags={
             'Name': f"{eks_cluster_name}-pulumi-sn-{zone}",
-            f"kubernetes.io/cluster/{eks_cluster_name}" : "shared"
+            f"kubernetes.io/cluster/{eks_cluster_name}" : "shared",
+            "kubernetes.io/role/elb" : "1"
         },
     )
     ec2.RouteTableAssociation(

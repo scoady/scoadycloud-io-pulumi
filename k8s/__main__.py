@@ -1,3 +1,5 @@
 import jenkins
+import kube_prometheus
 
-jenkins.deploy()
+#jenkins.deploy()
+kube_prometheus.deploy()

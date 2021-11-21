@@ -3,6 +3,7 @@ from namespace import create_namespace
 import helm_install
 import vpc
 import utils
+import external_dns
 import pulumi
 from pulumi_aws import eks
 from pulumi import Config
@@ -42,6 +43,7 @@ eks_node_group = eks.NodeGroup(
 
 namespace=create_namespace('newrelic')
 helm_install.deploy_newrelic_agent()
+#external_dns.deploy_dns()
 
 pulumi.export('cluster-name', eks_cluster.name)
 pulumi.export('kubeconfig', utils.generate_kube_config(eks_cluster))

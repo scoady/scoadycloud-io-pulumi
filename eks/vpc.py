@@ -51,7 +51,7 @@ for zone in zones.names:
         tags={
             'Name': f"{eks_cluster_name}-pulumi-sn-{zone}",
             f"kubernetes.io/cluster/{eks_cluster_name}" : "shared",
-            "kubernetes.io/role/internal-elb" : "1"
+            "kubernetes.io/role/elb" : "1"
         },
     )
     ec2.RouteTableAssociation(

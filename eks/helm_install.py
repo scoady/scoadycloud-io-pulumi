@@ -1,6 +1,7 @@
 from pulumi_kubernetes.helm.v3 import Chart, ChartOpts, FetchOpts
 from pulumi import Config
 import pulumi_kubernetes as k8s
+import os
 
 
 def deploy_newrelic_agent():
@@ -11,6 +12,17 @@ def deploy_newrelic_agent():
     newrelic_logging_key=config.require("newrelic_logging_key")
     aws_access_key=config.require("aws_access_key")
     aws_secret_key=config.require("aws_secret_key")
+
+
+  #  for root, dirs, files in os.walk("./baseinstall/crds/"):
+  #      for file in files:
+  #          if file.endswith(".yaml"):
+  #              print(os.path.join(root, file))
+  #              crds = k8s.yaml.ConfigFile(
+  #                  f"{file}-crd",
+  #                  file=f"{os.path.join(root, file)}",
+  #                  #transformations=[remove_status]
+  #              )
 
     ebs_csi_driver = Chart(
         "aws-ebs-csi-driver",
@@ -111,3 +123,8 @@ def deploy_newrelic_agent():
         )
     )
 
+# Remove the .status field from CRDs
+def remove_status(obj, opts):
+    if obj["kind"] == "CustomResourceDefinition":
+        if obj["status"]:
+            del obj["status"]

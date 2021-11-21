@@ -20,7 +20,7 @@ jobs:
       - uses: pulumi/actions@v3
         with:
           command: preview
-          work_dir: ./eks/
+          work-dir: ./eks/
           stack-name: scoadycloud-io-eks-prod
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}

@@ -17,10 +17,6 @@ filelock==3.0.12
 flake8==3.9.0
 Flask==1.1.2
 grpcio==1.36.1
-hc-aws-at-apple==1.1.2
-hc-aws-autotag==0.0.1
-hc-aws-eks==1.1.0
-hc-aws-rds==1.0.3
 himl==0.7.1
 hvac==0.10.9
 idna==2.10
@@ -46,7 +42,6 @@ pip-tools==6.1.0
 pluggy==0.13.1
 protobuf==3.15.6
 pulumi==2.25.2
-pulumi-apple==1.2.4
 pulumi-aws==3.38.1
 pulumi-cloudinit==0.2.1
 pulumi-kubernetes==2.8.4

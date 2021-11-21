@@ -35,9 +35,9 @@ eks_node_group = eks.NodeGroup(
         'Name': f"{eks_cluster_name}-pulumi-cluster-nodeGroup",
     },
     scaling_config=eks.NodeGroupScalingConfigArgs(
-        desired_size=6,
-        max_size=6,
-        min_size=6,
+        desired_size=7,
+        max_size=7,
+        min_size=7,
     ),
 )
 

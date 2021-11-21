@@ -20,7 +20,7 @@ jobs:
       - run: pip install -r ./eks/requirements.txt
       - uses: pulumi/actions@v3
         with:
-          command: preview
+          command: diff
           work-dir: ./eks/
           stack-name: scoadycloud-io-eks-prod
         env:

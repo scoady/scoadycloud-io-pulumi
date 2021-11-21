@@ -17,7 +17,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           pulumi-config-passphrase: ${{ secrets.PULUMI_CONFIG_PASSPHRASE }}
-      - run: cd eks && pip install -r requirements.txt
+      - run: pip install -r ./eks/requirements.txt
       - uses: pulumi/actions@v3
         with:
           command: preview

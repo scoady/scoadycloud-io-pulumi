@@ -21,6 +21,6 @@ jobs:
         with:
           command: preview
           work-dir: ./eks/
-          stack-name scoadycloud-io-eks-prod:
+          stack-name: scoadycloud-io-eks-prod
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}

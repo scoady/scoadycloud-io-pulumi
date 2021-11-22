@@ -1,5 +1,3 @@
 encryptionsalt: v1:kQ9zJOewBos=:v1:wGGcvulvZCPbrbwQ:9/Yus2B45P/KI4k8e2IhwP+x/Cp0pw==
 config:
   aws:profile: scoadycloud
-  k8s:jenkins_password:
-    secure: v1:/wkTXZ+hChB1aS19:/07YcDOdht2hBEDqdveF+4bUp8AD84uhjmo=

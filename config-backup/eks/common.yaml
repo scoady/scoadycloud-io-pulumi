@@ -1,0 +1,2 @@
+config:
+  eks:skip_initial_validation: "true"

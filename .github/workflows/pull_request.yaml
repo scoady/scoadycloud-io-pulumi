@@ -2,9 +2,49 @@ name: Pulumi
 on:
   - pull_request
 jobs:
-  preview:
-    name: Preview
+  generate-matrix:
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set matrix for build
+      id: set-matrix
+      run: |-
+        # See https://stackoverflow.com/a/62953566/11948346
+        JSON="{\"include\":["
+        export top_level_dirs=($(find . -type d -name "config"))
+        export stack_names=()
+
+        for dir in "${top_level_dirs[@]}"
+        do
+          export hits=($(find $dir -name "Pulumi.*.yaml"))
+          for hit in ${hits[@]}
+          do
+            export stack=$(echo $hit|rev|cut -d/ -f2|rev)
+            export project=$(echo $hit|rev|cut -d/ -f4|rev)
+            
+            JSON+="""{\"stack\" :\"$stack\", \"project\" : \"$project\"},"""
+          done
+        done
+        echo "${stack_names[@]}"
+
+        # Remove last "," and add closing brackets
+        if [[ $JSON == *, ]]; then
+          JSON="${JSON%?}"
+        fi
+        JSON="$JSON]}"
+        echo $JSON
+
+
+        # Set output
+        echo "::set-output name=matrix::$( echo "$JSON" )"
+  build:
+    name: Build "${{ matrix.stack }} for project ${{ matrix.project}}"
+    runs-on: ubuntu-latest
+    needs: generate-matrix
+    strategy:
+      matrix: ${{fromJson(needs.generate-matrix.outputs.matrix)}}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
@@ -17,13 +57,50 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           pulumi-config-passphrase: ${{ secrets.PULUMI_CONFIG_PASSPHRASE }}
-      - run: pip install -r ./eks/requirements.txt
+      - run: |-
+            pwd
+            npm install -g @alexlafroscia/yaml-merge
+            export STACK_NAME=${{matrix.stack}}
+            export STACK_TYPE=${{matrix.project}}
+            export ACTION=preview
+            export EXTRA_OPTS=--diff
+            export PULUMI_CONFIG_PASSPHRASE='Sc2016csc!'
+            echo "Checking config for stack: $STACK_NAME"
+            export config_yaml=$(find ./${STACK_TYPE}/config -name "Pulumi.$STACK_NAME.yaml")
+            echo "Found config file: $config_yaml"
+            export STACK_TYPE=$(echo $config_yaml|rev|cut -d/ -f4|rev)
+            echo "Searching for common.yaml in ./$STACK_TYPE/config/"
+            export common_yaml=$(find ./$STACK_TYPE/config/ -name "common.yaml")
+            echo "Found common yaml file: $common_yaml"
+            yaml-merge $common_yaml $config_yaml |tee ./$STACK_TYPE/Pulumi.$STACK_NAME.yaml
+            echo "Copied to: ./$STACK_TYPE/Pulumi.$STACK_NAME.yaml"
+            cd $STACK_TYPE
+            pip install -r requirements.txt
+            pulumi stack select $STACK_NAME
+            export region=$(pulumi config get region)
+            export cluster_name=$(pulumi config get cluster_name)
+            export skip_initial_kubeconfig=$(pulumi config get skip_initial_validation)
+            echo "Skip initial: $skip_initial_kubeconfig"
+            if [ "$skip_initial_kubeconfig" == "true" ];
+            then
+                echo "Skipping kubeconfig generation"
+
+            else
+                echo "Generating kubeconfig.. region: $region, cluster: $cluster_name"
+                aws eks --region $region update-kubeconfig --name $cluster_name
+                export current_context=$(kubectl config current-context)
+
+            fi
+        env:
+          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+          PULUMI_CONFIG_PASSPHRASE: ${{ secrets.PULUMI_CONFIG_PASSPHRASE }}
+          PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS: true
       - uses: pulumi/actions@v3
         with:
           command: preview 
           diff: true
-          work-dir: ./eks/
-          stack-name: scoadycloud-io-eks-prod
+          work-dir: ./${{matrix.project}}/
+          stack-name: ${{matrix.stack}}
           comment-on-pr: true
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}

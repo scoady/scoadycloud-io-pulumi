@@ -86,7 +86,7 @@ jobs:
 
             else
                 echo "Generating kubeconfig.. region: $region, cluster: $cluster_name"
-                aws eks --region $region update-kubeconfig --name $cluster_name --profile
+                aws eks --region $region update-kubeconfig --name $cluster_name
                 export current_context=$(kubectl config current-context)
 
             fi

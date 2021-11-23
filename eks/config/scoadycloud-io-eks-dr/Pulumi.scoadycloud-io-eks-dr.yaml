@@ -11,16 +11,17 @@ config:
   - https://download.newrelic.com/install/kubernetes/pixie/latest/px.dev_viziers.yaml
   - https://download.newrelic.com/install/kubernetes/pixie/latest/olm_crd.yaml
   eks:desired_node_pool_size: "7"
+  eks:install_helm_charts: "true"
   eks:max_node_pool_size: "7"
   eks:min_node_pool_size: "7"
   eks:newrelic_cluster_name: scoadycloud-us-east-1-prod
   eks:newrelic_license:
-    secure: v1:X3FWqGkOvIaDjG7+:dHr/gWA3oZL8KdP757cFfWJk2AEtVjQrdCAlvqiS93a7VsqtfCdKIiz94/uBOCfTuV70QwCH3Rw=
+    secure: v1:32+QTE3Z9tdxDRqr:xEyhTq+dNIuRjExOWZ8DcWhS9ozcZqNPY59iUDqgAW54aKgNqvmCZxrwyQruGen3DYUCC3jEJ3o=
   eks:newrelic_logging_key:
-    secure: v1:PT3+smBoVCqnRgim:nz5Ho5hail2WBOluIaPMum8UV7CelmVcFbNPDOdDrya+311e7BRLM5lcnpaXjubRRUXVPL+NSzc=
+    secure: v1:eY1H5wjypATjeiIn:OA07zzbwToYXd+blq9m0dDy4GWsbRaLrvepLKHOZlKJHt0RscczrphE7nFpZxFmCQ1CeSBZiBGY=
   eks:newrelic_px_api_key:
-    secure: v1:ow6MfUjz1BrwNHMD:kDsEaTeSPlZq16+pAq5HikAng5b1OZiRWpf+KazcEMCED18Qx6cAAfZ/Y9JDz1rXvsC3M8s9ndtMaSI=
+    secure: v1:6whg+r0F4Da6updC:iSmqbOLNIg2hRgzbztoo9jBfDjxEuoxp7sOLYT+hzX5LtLC5/LqiKSuiieN6i/40PaD6YoyK2ZHq43A=
   eks:newrelic_px_deploy_key:
-    secure: v1:aVw4BBDlHNfC2H9f:o9sAlpKTWdenVpkjX3Zb+db0+vi0yq7uosQBGKVsYiDVaXqX7J8fslBNs0/1OvKCLGGswEtEXs4v62k=
+    secure: v1:si0qqMYNgBBDzY4H:dH8xkLUgwndA1dzH7B4ZUkYxIZ/Jz4SlfVGs5CZXwrS/i112sTCtMqFIJXiRlKmaT+1mSzVR518UN0Y=
   eks:region: us-east-1
   eks:skip_initial_validation: "false"

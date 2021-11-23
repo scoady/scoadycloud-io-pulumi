@@ -1,4 +1,0 @@
-encryptionsalt: v1:kQ9zJOewBos=:v1:wGGcvulvZCPbrbwQ:9/Yus2B45P/KI4k8e2IhwP+x/Cp0pw==
-config:
-  aws:profile: scoadycloud
-  k8s:skip_initial_validation: false

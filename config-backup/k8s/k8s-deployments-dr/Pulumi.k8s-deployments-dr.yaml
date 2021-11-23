@@ -1,6 +1,0 @@
-config:
-  aws:region: us-east-1
-  k8s:region: us-east-1  
-  k8s:acm_cert_arn: "arn:aws:acm:us-east-1:662892719773:certificate/b2fda0a4-f564-42a3-b5d5-a7c33369ee68"
-  k8s:cluster_name: "scoadycloud-us-east-1-prod"
-  k8s:deploy_prometheus: true

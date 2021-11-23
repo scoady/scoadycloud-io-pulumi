@@ -1,0 +1,3 @@
+name: newrelic
+runtime: python
+description: Newrelic monitor setups

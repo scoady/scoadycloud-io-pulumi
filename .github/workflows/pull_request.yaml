@@ -80,7 +80,7 @@ jobs:
             pip install -q -r requirements.txt
             pulumi stack select $STACK_NAME
             export region=$(pulumi config get region)
-            export skip_initial_kubeconfig=$(pulumi config get skip_initial_validation)
+            export skip_initial_kubeconfig=`pulumi config get skip_initial_validation 2>&1`
             echo "Skip initial: $skip_initial_kubeconfig"
             if [[ "$skip_initial_kubeconfig" == *'not found for stack'* ]];
             then

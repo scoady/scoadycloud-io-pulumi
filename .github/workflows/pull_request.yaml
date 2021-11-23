@@ -67,9 +67,9 @@ jobs:
             echo "Checking config for stack: $STACK_NAME"
             export config_yaml=$(find ./${STACK_TYPE}/config -name "Pulumi.$STACK_NAME.yaml")
             echo "Found config file: $config_yaml"
-            export STACK_TYPE=$(echo $config_yaml|rev|cut -d/ -f3|rev)
+            export STACK_TYPE=$(echo $config_yaml|rev|cut -d/ -f5|rev)
             echo "Searching for common.yaml in ./$STACK_TYPE/config/"
-            export common_yaml=$(find ./$STACK_TYPE/config/$STACK_TYPE -name "common.yaml")
+            export common_yaml=$(find ./$STACK_TYPE/config/ -name "common.yaml")
             echo "Found common yaml file: $common_yaml"
             yaml-merge $common_yaml $config_yaml |tee ./$STACK_TYPE/Pulumi.$STACK_NAME.yaml
             echo "Copied to: ./$STACK_TYPE/Pulumi.$STACK_NAME.yaml"

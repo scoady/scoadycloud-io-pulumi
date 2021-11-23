@@ -59,7 +59,7 @@ jobs:
           pulumi-config-passphrase: ${{ secrets.PULUMI_CONFIG_PASSPHRASE }}
       - run: |-
             pwd
-            npm install -g @alexlafroscia/yaml-merge
+            npm install -g @alexlafroscia/yaml-merge  &>/dev/null
             export STACK_NAME=${{matrix.stack}}
             export STACK_TYPE=${{matrix.project}}
             export ACTION=preview
@@ -75,17 +75,16 @@ jobs:
             yaml-merge $common_yaml $config_yaml |tee ./$STACK_TYPE/Pulumi.$STACK_NAME.yaml
             echo "Copied to: ./$STACK_TYPE/Pulumi.$STACK_NAME.yaml"
             cd $STACK_TYPE
-            pip install -r requirements.txt
+            pip install -q -r requirements.txt
             pulumi stack select $STACK_NAME
             export region=$(pulumi config get region)
-            export cluster_name=$(pulumi config get cluster_name)
             export skip_initial_kubeconfig=`pulumi config get skip_initial_validation 2>&1`
             echo "Skip initial: $skip_initial_kubeconfig"
-            if [ "$skip_initial_kubeconfig" == "true" ];
+            if [[ "$skip_initial_kubeconfig" == *'not found for stack'* ]];
             then
-                echo "Skipping kubeconfig generation"
-
+              echo "no value specific for kubernetes deployment. skipping kubeconfig."
             else
+                export cluster_name=$(pulumi config get cluster_name)
                 echo "Generating kubeconfig.. region: $region, cluster: $cluster_name"
                 aws eks --region $region update-kubeconfig --name $cluster_name
                 export current_context=$(kubectl config current-context)

@@ -1,4 +1,7 @@
 encryptionsalt: v1:MeTPir7Ohts=:v1:8D2jgW0fNO3TdU6G:x3O4UQNnEENkNhzi+9+hxqaPrL1EJA==
 config:
   aws:region: us-west-1
-  acm:certificate_cn: web.scoady.io
+  acm:certificates: 
+    -  "*.web.scoady.io"
+
+

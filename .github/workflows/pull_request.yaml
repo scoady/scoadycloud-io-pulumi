@@ -80,7 +80,6 @@ jobs:
             pip install -q -r requirements.txt
             pulumi stack select $STACK_NAME
             export region=$(pulumi config get region)
-            export cluster_name=$(pulumi config get cluster_name)
             export skip_initial_kubeconfig=$(pulumi config get skip_initial_validation)
             echo "Skip initial: $skip_initial_kubeconfig"
             if [ "$skip_initial_kubeconfig" == "true" ];
@@ -88,6 +87,7 @@ jobs:
                 echo "Skipping kubeconfig generation"
 
             else
+                export cluster_name=$(pulumi config get cluster_name)
                 echo "Generating kubeconfig.. region: $region, cluster: $cluster_name"
                 aws eks --region $region update-kubeconfig --name $cluster_name
                 export current_context=$(kubectl config current-context)

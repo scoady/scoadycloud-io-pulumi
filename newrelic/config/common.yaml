@@ -1,0 +1,2 @@
+config:
+  newrelic:skip_initial_validation: "true"

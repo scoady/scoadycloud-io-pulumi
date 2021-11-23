@@ -64,7 +64,7 @@ jobs:
             export ACTION=preview
             export EXTRA_OPTS=--diff
             export PULUMI_CONFIG_PASSPHRASE='Sc2016csc!'
-            export AWS_PROFILE="scoadycloud"
+            export AWS_PROFILE="default"
             echo "Checking config for stack: $STACK_NAME"
             export config_yaml=$(find ./${STACK_TYPE}/config -name "Pulumi.$STACK_NAME.yaml")
             echo "Found config file: $config_yaml"

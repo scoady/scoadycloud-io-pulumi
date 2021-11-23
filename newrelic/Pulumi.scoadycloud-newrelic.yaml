@@ -1,7 +1,0 @@
-encryptionsalt: v1:ecdnJtZ9tbI=:v1:fW4GO+19iDUjZmGu:71jI4OdxWM4ZDJadGP6oK4L/wqW34A==
-config:
-  newlic:apiKey:
-    secure: v1:YMqhyLlS/76bdB8i:xfYaKOI5b3rmiM17AfWJihJFxg2b7ZQi3H0SA7SjIU6PvBV5PXlMq2U3uHAWj0iGv3Y5bVAy8Oc=
-  newrelic:accountId: "3347353"
-  newrelic:adminApiKey:
-    secure: v1:+4r9UiXDXFFaZBs3:u4GR+hKDx5AUy6hLP4KpAM8u+unx7y3iNWz2ufSlDjNPvBiMh8QLgoJABlbfDVKq

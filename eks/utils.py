@@ -1,5 +1,6 @@
 import json
 import pulumi
+import pulumi_kubernetes as k8s
 
 def generate_kube_config(eks_cluster):
 
@@ -37,3 +38,4 @@ def generate_kube_config(eks_cluster):
         }],
     }))
     return kubeconfig
+

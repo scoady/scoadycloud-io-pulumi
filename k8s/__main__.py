@@ -1,5 +1,10 @@
-import jenkins
 import kube_prometheus
+from pulumi import Config
 
-#jenkins.deploy()
-kube_prometheus.deploy()
+
+
+config=Config()
+deploy_prometheus=config.require_bool("deploy_prometheus")
+
+if deploy_prometheus:
+    kube_prometheus.deploy()

@@ -12,7 +12,7 @@ def create():
         ],
         status="ENABLED",
         type="SIMPLE",
-        uri="https://apt-mirror.web.scoady.io",
-        validation_string=" Server at apt-mirror.web.scoady.io ",
+        uri="https://nginx.web.scoady.io",
+        validation_string="Welcome to nginx!",
         verify_ssl=True)
     # Optional for type "SIMPLE" and "BROWSER"

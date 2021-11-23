@@ -64,11 +64,11 @@ def deploy_newrelic_agent():
                     "enabled" : "true"
                 },
                 "newrelic-pixie" : {
-                    "enabled" : "true",
+                    "enabled" : "false",
                     "apiKey" : f"{newrelic_px_api_key}" ## encrypted secret 
                 },
                 "pixie-chart" : {
-                    "enabled" : "true",
+                    "enabled" : "false",
                     "deployKey" : f"{newrelic_px_deploy_key}", ## encrypted secret
                     "clusterName" : f"{newrelic_cluster_name}"
                 }

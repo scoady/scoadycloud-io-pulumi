@@ -47,8 +47,9 @@ eks_node_group = eks.NodeGroup(
 if skip_validation == "true":
     print("Not installing namespace or agents. Please set config option skip_initial_validation: false to install agents.")
 else:
-    namespace=create_namespace('newrelic')
-    helm_install.deploy_newrelic_agent()
+    if config.get('install_helm_charts') == "true":
+        namespace=create_namespace('newrelic')
+        helm_install.deploy_newrelic_agent()
 
 pulumi.export('cluster-name', eks_cluster.name)
 pulumi.export('kubeconfig', utils.generate_kube_config(eks_cluster))

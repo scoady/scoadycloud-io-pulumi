@@ -1,0 +1,6 @@
+config:
+  newrelic:apiKey:
+    secure: AAABACb1G/FeUsrfGUjykMW1Qpwl0LF6IY0DssZ86VOrFZIR+DmPkbQ7rmzxcFoPFVMr/ZbCLa4byabxzcLE4wRKzHc/vT8Y
+  newrelic:accountId: "3347353"
+  newrelic:adminApiKey:
+    secure: AAABAEnVIqLoQWIwt4RXO9Rcea2qX1asTTfgOe2zqepy1ljlldKVmcrPlgt3hjtL1wGw+EzOTMyDNp+k1MkdrA==

@@ -82,10 +82,9 @@ jobs:
             export region=$(pulumi config get region)
             export skip_initial_kubeconfig=$(pulumi config get skip_initial_validation)
             echo "Skip initial: $skip_initial_kubeconfig"
-            if [ "$skip_initial_kubeconfig" == "true" ];
+            if [[ "$skip_initial_kubeconfig" == *'not found for stack'* ]];
             then
-                echo "Skipping kubeconfig generation"
-
+              echo "no value specific for kubernetes deployment. skipping kubeconfig."
             else
                 export cluster_name=$(pulumi config get cluster_name)
                 echo "Generating kubeconfig.. region: $region, cluster: $cluster_name"

@@ -1,3 +1,3 @@
-name: newrelic
+name: newrelic-synthetics
 runtime: python
 description: Newrelic monitor setups

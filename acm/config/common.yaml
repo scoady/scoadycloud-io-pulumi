@@ -1,2 +1,2 @@
 config:
-  acm: skip_initial_validation: "true"
+  acm:skip_initial_validation: "true"

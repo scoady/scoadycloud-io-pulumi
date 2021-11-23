@@ -9,8 +9,8 @@ from pulumi import ResourceOptions
 
 def deploy(): 
     config=Config()
-    grafana_admin_password=config.require("grafana_admin_pass")
-    grafana_admin_user=config.require("grafana_admin_user")
+    region=config.require("region")
+    acm_cert_arn=config.require("acm_cert_arn")
     prom_helm = Chart(
     "prometheus-community",
     ChartOpts(
@@ -23,6 +23,11 @@ def deploy():
             repo = "https://prometheus-community.github.io/helm-charts"
         ),
         values={
+            "global" : {
+                "prometheusSpec": {
+                    "prometheusExternalLabelName" : f"prometheus-{region}-cluster"
+                }
+            },
             "grafana" : {
                 "service" : {
                     "enabled" : True,
@@ -30,25 +35,31 @@ def deploy():
                     "type" : "LoadBalancer",
                     "annotations": {
                         "service.beta.kubernetes.io/aws-load-balancer-backend-protocol" : "http",
-                        "service.beta.kubernetes.io/aws-load-balancer-ssl-cert" : "arn:aws:acm:us-west-1:662892719773:certificate/fb18919a-b4d7-412c-969b-e7350dffe12c",
+                        "service.beta.kubernetes.io/aws-load-balancer-ssl-cert" : f"{acm_cert_arn}",
                         "service.beta.kubernetes.io/aws-load-balancer-ssl-ports" : "443",
-                        "external-dns.alpha.kubernetes.io/hostname" : "grafana.web.scoady.io",
+                        "external-dns.alpha.kubernetes.io/hostname" : f"grafana-{region}.web.scoady.io",
                         "service.beta.kubernetes.io/aws-load-balancer-type" : "nlb"                 
                     }
                   }
             },
             "prometheus" : {
-            "externalUrl" : "prometheus.web.scoady.io",
-            "service" : {
-                "port" : "443",
-                "type" : "LoadBalancer",
-                "annotations": {
-                    "service.beta.kubernetes.io/aws-load-balancer-backend-protocol" : "http",
-                    "service.beta.kubernetes.io/aws-load-balancer-ssl-cert" : "arn:aws:acm:us-west-1:662892719773:certificate/fb18919a-b4d7-412c-969b-e7350dffe12c",
-                    "service.beta.kubernetes.io/aws-load-balancer-ssl-ports" : "443",
-                    "external-dns.alpha.kubernetes.io/hostname" : "prometheus.web.scoady.io",
-                    "service.beta.kubernetes.io/aws-load-balancer-type" : "nlb"                 
-                }
+                "externalLabels" : {
+                    "cluster_name" : f"prometheus-{region}-cluster"
+                },
+                "replicaExternalLabelName" : {
+                    "replica_cluster_name" : f"prometheus-{region}-cluster"
+                },
+                "externalUrl" : "prometheus.web.scoady.io",
+                "service" : {
+                    "port" : "443",
+                    "type" : "LoadBalancer",
+                    "annotations": {
+                        "service.beta.kubernetes.io/aws-load-balancer-backend-protocol" : "http",
+                        "service.beta.kubernetes.io/aws-load-balancer-ssl-cert" : f"{acm_cert_arn}",
+                        "service.beta.kubernetes.io/aws-load-balancer-ssl-ports" : "443",
+                        "external-dns.alpha.kubernetes.io/hostname" : f"prometheus-{region}.web.scoady.io",
+                        "service.beta.kubernetes.io/aws-load-balancer-type" : "nlb"                 
+                    }
             }
             },
             "defaultRules" : {
@@ -89,8 +100,9 @@ def deploy():
     )
 
 
-
 # Remove the .status field from CRDs
 def remove_status(obj, opts):
     if obj["kind"] == "CustomResourceDefinition":
         del obj["status"]
+
+

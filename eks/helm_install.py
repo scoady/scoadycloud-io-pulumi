@@ -12,17 +12,15 @@ def deploy_newrelic_agent():
     newrelic_logging_key=config.require("newrelic_logging_key")
     aws_access_key=config.require("aws_access_key")
     aws_secret_key=config.require("aws_secret_key")
+    custom_crds=config.require_object("custom_crds")
+    newrelic_cluster_name=config.require("cluster_name")
 
-
-  #  for root, dirs, files in os.walk("./baseinstall/crds/"):
-  #      for file in files:
-  #          if file.endswith(".yaml"):
-  #              print(os.path.join(root, file))
-  #              crds = k8s.yaml.ConfigFile(
-  #                  f"{file}-crd",
-  #                  file=f"{os.path.join(root, file)}",
-  #                  #transformations=[remove_status]
-  #              )
+    for custom_crd in custom_crds:
+        crds = k8s.yaml.ConfigFile(
+            f"{custom_crd}",
+            file=f"{custom_crd}",
+            transformations=[remove_status]
+        )
 
     ebs_csi_driver = Chart(
         "aws-ebs-csi-driver",
@@ -47,7 +45,7 @@ def deploy_newrelic_agent():
             values={
                 "global" : {
                     "licenseKey" : f"{newrelic_license}",
-                    "cluster": "scoadycloud-io-prod",
+                    "cluster": f"{newrelic_cluster_name}",
                     "lowDataMode": "true",
                 },
                 "newrelic-infrastructure": {
@@ -72,7 +70,7 @@ def deploy_newrelic_agent():
                 "pixie-chart" : {
                     "enabled" : "true",
                     "deployKey" : f"{newrelic_px_deploy_key}", ## encrypted secret
-                    "clusterName" : "scoadycloud-io-prod"
+                    "clusterName" : f"{newrelic_cluster_name}"
                 }
             }
         ),
@@ -117,7 +115,7 @@ def deploy_newrelic_agent():
                 "rbac" : {
                     "create" : "true"
                 },
-                "policy" : "sync",
+                "policy" : "upsert-only",
                 "txtPrefix": "autogen"
             }
         )
@@ -126,5 +124,4 @@ def deploy_newrelic_agent():
 # Remove the .status field from CRDs
 def remove_status(obj, opts):
     if obj["kind"] == "CustomResourceDefinition":
-        if obj["status"]:
-            del obj["status"]
+        obj.pop("status",None)

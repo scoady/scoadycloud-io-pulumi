@@ -57,6 +57,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           pulumi-config-passphrase: ${{ secrets.PULUMI_CONFIG_PASSPHRASE }}
+      - run: npm install yaml-merge
       - run: |-
             export STACK_NAME=${{matrix.stack}}
             export STACK_TYPE=${{matrix.project}}

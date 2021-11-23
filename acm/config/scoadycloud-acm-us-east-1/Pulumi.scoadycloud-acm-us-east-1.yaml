@@ -2,5 +2,4 @@ config:
   acm:certificates:
     - '*.web.scoady.io'
     - grafana-us-east-1.web.scoady.io
-  aws:profile: scoadycloud
   aws:region: us-east-1

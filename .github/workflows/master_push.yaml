@@ -96,7 +96,7 @@ jobs:
           PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS: true
       - uses: pulumi/actions@v3
         with:
-          command: preview 
+          command: up 
           work-dir: ./${{matrix.project}}/
           stack-name: ${{matrix.stack}}
         env:

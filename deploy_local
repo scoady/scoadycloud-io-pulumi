@@ -1,0 +1,59 @@
+#!/bin/bash
+
+# See https://stackoverflow.com/a/62953566/11948346
+export stack_to_build=$1
+export ACTION=$2
+export EXTRA_OPTS=${*:3}
+JSON="{\"include\":["
+export top_level_dirs=($(find . -type d -name "config"))
+export stack_names=()
+
+for dir in "${top_level_dirs[@]}"
+do
+    export hits=($(find $dir -name "Pulumi.$stack_to_build.yaml"))
+    for hit in ${hits[@]}
+    do
+    export stack=$(echo $hit|rev|cut -d/ -f2|rev)
+    export project=$(echo $hit|rev|cut -d/ -f4|rev)
+    
+    JSON+="""{\"stack\" :\"$stack\", \"project\" : \"$project\"},"""
+    done
+done
+echo "${stack_names[@]}"
+
+# Remove last "," and add closing brackets
+if [[ $JSON == *, ]]; then
+    JSON="${JSON%?}"
+fi
+JSON="$JSON]}"
+echo $JSON
+npm install -g @alexlafroscia/yaml-merge  &>/dev/null
+export STACK_NAME=$(echo $JSON|jq -r '.include[].stack')
+export STACK_TYPE=$(echo $JSON|jq -r '.include[].project')
+echo "Checking config for stack: $STACK_NAME"
+export config_yaml=$(find ./${STACK_TYPE}/config -name "Pulumi.$STACK_NAME.yaml")
+echo "Found config file: $config_yaml"
+export STACK_TYPE=$(echo $config_yaml|rev|cut -d/ -f4|rev)
+echo "Searching for common.yaml in ./$STACK_TYPE/config/"
+export common_yaml=$(find ./$STACK_TYPE/config/ -name "common.yaml")
+echo "Found common yaml file: $common_yaml"
+yaml-merge $common_yaml $config_yaml |tee ./$STACK_TYPE/Pulumi.$STACK_NAME.yaml
+echo "Copied to: ./$STACK_TYPE/Pulumi.$STACK_NAME.yaml"
+cd $STACK_TYPE
+pip install -q -r requirements.txt
+pulumi stack select $STACK_NAME
+export region=$(pulumi config get region)
+export skip_initial_kubeconfig=`pulumi config get skip_initial_validation 2>&1`
+echo "Skip initial: $skip_initial_kubeconfig"
+if [[ "$skip_initial_kubeconfig" == *'not found for stack'* ]];
+then
+    echo "no value specific for kubernetes deployment. skipping kubeconfig."
+else
+    export cluster_name=$(pulumi config get cluster_name)
+    echo "Generating kubeconfig.. region: $region, cluster: $cluster_name"
+    aws eks --region $region update-kubeconfig --name $cluster_name
+    export current_context=$(kubectl config current-context)
+
+fi
+
+pulumi $ACTION $EXTRA_OPTS

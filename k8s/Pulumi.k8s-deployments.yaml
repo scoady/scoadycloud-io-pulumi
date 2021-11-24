@@ -1,6 +1,7 @@
 encryptionsalt: v1:kQ9zJOewBos=:v1:wGGcvulvZCPbrbwQ:9/Yus2B45P/KI4k8e2IhwP+x/Cp0pw==
 config:
   aws:profile: scoadycloud
+  k8s:skip_initial_validation: false
   k8s:region: us-west-1
   k8s:acm_cert_arn: >-
     arn:aws:acm:us-west-1:662892719773:certificate/fb18919a-b4d7-412c-969b-e7350dffe12c

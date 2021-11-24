@@ -8,3 +8,7 @@ config:
     arn:aws:acm:us-east-1:662892719773:certificate/b2fda0a4-f564-42a3-b5d5-a7c33369ee68
   k8s:cluster_name: scoadycloud-us-east-1-prod
   k8s:deploy_prometheus: true
+  k8s:deploy_postgres: true
+  k8s:deploy_redis: true
+  k8s:deploy_kafka: true
+  k8s:deploy_nginx: false

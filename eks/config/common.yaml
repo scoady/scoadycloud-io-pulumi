@@ -1,2 +1,3 @@
 config:
-  eks:skip_initial_validation: "false"
+  eks:skip_initial_validation: "true"
+  eks:instance_type: "c5.xlarge"

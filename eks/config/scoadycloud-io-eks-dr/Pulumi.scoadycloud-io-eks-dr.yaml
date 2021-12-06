@@ -25,3 +25,4 @@ config:
     secure: v1:si0qqMYNgBBDzY4H:dH8xkLUgwndA1dzH7B4ZUkYxIZ/Jz4SlfVGs5CZXwrS/i112sTCtMqFIJXiRlKmaT+1mSzVR518UN0Y=
   eks:region: us-east-1
   eks:skip_initial_validation: "false"
+  eks:s3_operator: "false"

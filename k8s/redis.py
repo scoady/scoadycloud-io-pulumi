@@ -3,25 +3,45 @@ from pulumi import Config
 import pulumi_kubernetes as k8s
 import pulumi,helm_utils
 from pulumi import ResourceOptions
+from pulumi_kubernetes.helm.v3 import Release, ReleaseArgs, RepositoryOptsArgs
 
 def deploy():
     print("Hello")
-    redis_deploy = Chart(
+    redis_deploy = Release(
             "redis-helm",
-            ChartOpts(
+                name="redis-helm",
                 namespace="app",
-                repo="bitnami",
                 version="15.5.5",
                 chart="redis",
-                transformations=[helm_utils.remove_status],
-                fetch_opts=FetchOpts(
+                repository_opts=RepositoryOptsArgs(
                     repo = "https://charts.bitnami.com/bitnami"
                 ),
+                cleanup_on_fail=True,
+                create_namespace=True,
+                disable_crd_hooks=False,
+                disable_webhooks=False,
+                force_update=True,
+                disable_openapi_validation=True,
+                recreate_pods=True,
+                reuse_values=True,
+                atomic=True,
                 values={
+                    "metrics" : {
+                        "podAnnotations" : {
+                            "prometheus.io/scrape" : "true",
+                            "prometheus.io/port" : "9121"
+                        },
+                        "enabled" : True,
+                        "serviceMonitor" : {
+                            "enabled" : False
+                        },
+                    },
+                    "usePassword" : False,
                     "global" : {
-                    "auth" : {
-                        "enabled" : False
+                        "usePassword" : False,
+                        "auth" : {
+                            "enabled" : False
+                        }
                     }
-                
                 }
-            ))
+    )

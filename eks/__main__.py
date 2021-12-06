@@ -14,6 +14,7 @@ from pulumi import Config,Output
 config = Config()
 eks_cluster_name = config.require("cluster_name")
 skip_validation = config.require("skip_initial_validation")
+instance_type = config.require('instance_type')
 
 eks_cluster = eks.Cluster(
     f"{eks_cluster_name}-cluster",
@@ -35,6 +36,7 @@ eks_node_group = eks.NodeGroup(
     node_group_name=f"{eks_cluster_name}-pulumi-eks-nodegroup",
     node_role_arn=iam.ec2_role.arn,
     subnet_ids=vpc.subnet_ids[:3],
+    instance_types=[f"{instance_type}"],
     tags={
         'Name': f"{eks_cluster_name}-pulumi-cluster-nodeGroup",
     },
@@ -49,6 +51,8 @@ if skip_validation == "true":
 else:
     if config.get('install_helm_charts') == "true":
         namespace=create_namespace('newrelic')
+        #namespace=create_namespace('monitoring')
+        namespace=create_namespace('s3-provisioner')
         helm_install.deploy_newrelic_agent()
 
 pulumi.export('cluster-name', eks_cluster.name)

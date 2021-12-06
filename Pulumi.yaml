@@ -1,5 +1,0 @@
-config:
-  aws:profile: scoadycloud
-  aws:region: us-west-2
-  ec2:hosted_zone_name: web.scoady.io
-  ec2:vpc-id: vpc-0f928137426695752

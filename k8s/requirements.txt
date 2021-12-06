@@ -40,11 +40,11 @@ Pillow==8.1.0
 pip-tools==6.1.0
 pluggy==0.13.1
 protobuf==3.15.6
-pulumi==2.25.2
-pulumi-aws==3.38.1
-pulumi-cloudinit==0.2.1
-pulumi-kubernetes==2.8.4
-pulumi-random==3.1.1
+pulumi
+pulumi-aws
+pulumi-cloudinit
+pulumi-kubernetes==3.7.2
+pulumi-random
 py==1.10.0
 pyasn1==0.4.8
 pycodestyle==2.7.0

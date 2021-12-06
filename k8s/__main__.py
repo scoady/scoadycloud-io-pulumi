@@ -1,4 +1,4 @@
-import kube_prometheus,postgres,redis,kafka,nginx
+import kube_prometheus,postgres,redis,kafka,nginx,tinyurl
 from pulumi import Config
 
 
@@ -10,6 +10,7 @@ deploy_postgres=config.require_bool("deploy_postgres")
 deploy_redis=config.require_bool("deploy_redis")
 deploy_kafka=config.require_bool("deploy_kafka")
 deploy_nginx=config.require_bool("deploy_nginx")
+deploy_tinyurl=config.require_bool("deploy_tinyurl")
 
 if deploy_prometheus:
     kube_prometheus.deploy()
@@ -25,3 +26,6 @@ if deploy_kafka:
 
 if deploy_nginx:
     nginx.deploy()
+
+if deploy_tinyurl:
+    tinyurl.deploy()

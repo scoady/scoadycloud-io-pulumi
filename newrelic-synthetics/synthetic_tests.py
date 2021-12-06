@@ -3,8 +3,8 @@ import pulumi_newrelic as newrelic
 
 
 def create():
-    grafana_healthcheck = newrelic.synthetics.Monitor("grafana-synthetic-frontdoor-monitor",
-        name="grafana-synthetic-frontdor-monitor",
+    us_east_hc = newrelic.synthetics.Monitor("tinyurl-us-east-1-frontdoor-monitor",
+        name="tinyurl-us-east-1-synthetic-frontdor-monitor",
         frequency=5,
         locations=[
             "AWS_US_EAST_1",
@@ -12,13 +12,13 @@ def create():
         ],
         status="ENABLED",
         type="SIMPLE",
-        uri="https://grafana.web.scoady.io/healthz",
+        uri="https://tinyurl-us-west-1.web.scoady.io/healthz",
         validation_string="Ok",
         verify_ssl=True)
     # Optional for type "SIMPLE" and "BROWSER"
 
-    prometheus_healthcheck = newrelic.synthetics.Monitor("prometheus-synthetic-frontdoor-monitor",
-        name="prometheus-synthetic-frontdoor-monitor",
+    us_west_hc = newrelic.synthetics.Monitor("tinyurl-us-west-1-synthetic-frontdoor-monitor",
+        name="tinyurl-us-west-1-synthetic-frontdoor-monitor",
         frequency=5,
         locations=[
             "AWS_US_EAST_1",
@@ -26,7 +26,7 @@ def create():
         ],
         status="ENABLED",
         type="SIMPLE",
-        uri="https://prometheus.web.scoady.io/-/healthy",
-        validation_string="Prometheus is Healthy.",
+        uri="https://tinyurl-us-west-1.web.scoady.io/-/healthy",
+        validation_string="Ok",
         verify_ssl=True)
     # Optional for type "SIMPLE" and "BROWSER"

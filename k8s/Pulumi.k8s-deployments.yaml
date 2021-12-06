@@ -5,5 +5,11 @@ config:
   k8s:region: us-west-1
   k8s:acm_cert_arn: >-
     arn:aws:acm:us-west-1:662892719773:certificate/fb18919a-b4d7-412c-969b-e7350dffe12c
-  k8s:deploy_prometheus: true
+  k8s:deploy_prometheus: false
+  k8s:deploy_postgres: true
+  k8s:deploy_redis: true
+  k8s:deploy_kafka: false
+  k8s:deploy_nginx: false
+  k8s:use_pulumi_release: false
   k8s:cluster_name: scoadycloud-us-west-1-prod
+  k8s:deploy_tinyurl: true

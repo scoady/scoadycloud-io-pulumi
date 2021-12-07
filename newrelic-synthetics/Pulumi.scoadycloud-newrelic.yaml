@@ -6,3 +6,13 @@ config:
   newrelic:adminApiKey:
     secure: >-
       AAABAFJ4dpD9iUBESXdfLuIFzPv3VUDVsb1sdS3RVUw/XtsQFtCc7JqzIhTPUKjBuo90TD7F3Y+6tThQVVvH2A==
+  newrelic-synthetics:checks:
+    - name: tinyurl-us-east-1
+      endpoint: https://tinyurl-us-east-1.web.scoady.io/status
+      validation_string: '{"message":"it works","status":200}'
+    - name: tinyurl-us-west-1
+      endpoint: https://tinyurl-us-west-1.web.scoady.io/status
+      validation_string: '{"message":"it works","status":200}'
+    - name: tinyurl-web
+      endpoint: https://tinyurl.web.scoady.io/status
+      validation_string: '{"message":"it works","status":200}'

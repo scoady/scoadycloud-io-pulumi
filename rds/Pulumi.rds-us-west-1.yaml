@@ -1,9 +1,0 @@
-config:
-  aws:profile: scoadycloud
-  aws:region: us-west-1
-  rds:db_name: tinyurl
-  rds:dbname: tinyurl
-  rds:password:
-    secure: AAABAGhwgWFbNAChF7g6eq9qdmetRSjVdih6rjhO7L8Z+pgPeo3YXben
-  rds:username:
-    secure: AAABAI/rqO0TKeTo+Ut+FPzbXhuSrWXXae80WlsByjpkWhnR3UM=

@@ -1,0 +1,5 @@
+config:
+  acm:certificates:
+    - '*.web.scoady.io'
+    - grafana-us-east-1.web.scoady.io
+  aws:region: us-east-1

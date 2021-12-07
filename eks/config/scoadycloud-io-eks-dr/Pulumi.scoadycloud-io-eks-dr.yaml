@@ -10,10 +10,10 @@ config:
   eks:custom_crds:
   - https://download.newrelic.com/install/kubernetes/pixie/latest/px.dev_viziers.yaml
   - https://download.newrelic.com/install/kubernetes/pixie/latest/olm_crd.yaml
-  eks:desired_node_pool_size: "7"
+  eks:desired_node_pool_size: "1"
   eks:install_helm_charts: "true"
-  eks:max_node_pool_size: "7"
-  eks:min_node_pool_size: "7"
+  eks:max_node_pool_size: "1"
+  eks:min_node_pool_size: "1"
   eks:newrelic_cluster_name: scoadycloud-us-east-1-prod
   eks:newrelic_license:
     secure: v1:32+QTE3Z9tdxDRqr:xEyhTq+dNIuRjExOWZ8DcWhS9ozcZqNPY59iUDqgAW54aKgNqvmCZxrwyQruGen3DYUCC3jEJ3o=
@@ -26,3 +26,4 @@ config:
   eks:region: us-east-1
   eks:skip_initial_validation: "false"
   eks:s3_operator: "false"
+  eks:install_newrelic: "true"

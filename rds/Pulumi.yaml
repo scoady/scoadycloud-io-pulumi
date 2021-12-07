@@ -1,3 +1,0 @@
-name: rds
-runtime: python
-description: Auto-configured RDS instance

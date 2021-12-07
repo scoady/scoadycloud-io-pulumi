@@ -84,6 +84,7 @@ def deploy_newrelic_agent():
                 recreate_pods=True,
                 reuse_values=True,
                 skip_crds=True,
+                verify=False,
                 atomic=True,
 		timeout=600,
                 disable_openapi_validation=True,
@@ -132,6 +133,7 @@ def deploy_newrelic_agent():
                 disable_openapi_validation=True,
                 skip_crds=True,
                 force_update=True,
+                verify=False,
                 atomic=True,
 		timeout=600,
                 repository_opts=RepositoryOptsArgs(
@@ -153,6 +155,7 @@ def deploy_newrelic_agent():
             chart="external-dns",
             name="external-dns",
             version="5.5.0",
+            verify=False,
             repository_opts=RepositoryOptsArgs(
                 repo="https://charts.bitnami.com/bitnami"
             ),

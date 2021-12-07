@@ -25,6 +25,7 @@ def deploy():
                 recreate_pods=True,
                 reuse_values=True,
                 atomic=True,
+                verify=False,
                 values={
                     "metrics" : {
                         "podAnnotations" : {

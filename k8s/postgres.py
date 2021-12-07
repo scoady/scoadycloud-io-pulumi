@@ -28,6 +28,7 @@ def deploy():
         recreate_pods=True,
         atomic=True,
         replace=True,
+        verify=False,
         values={
         "service" : {
             "annotations" : {

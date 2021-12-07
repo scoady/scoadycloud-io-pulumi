@@ -63,6 +63,7 @@ def deploy_newrelic_agent():
             recreate_pods=True,
             reuse_values=True,
             atomic=True,
+            verify=False,
             values={}
     )
     if install_newrelic is not None:
@@ -86,7 +87,7 @@ def deploy_newrelic_agent():
                 skip_crds=True,
                 verify=False,
                 atomic=True,
-		timeout=600,
+		        timeout=600,
                 disable_openapi_validation=True,
                 values={
                     "global" : {

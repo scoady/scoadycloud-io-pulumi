@@ -8,7 +8,7 @@ def create():
     for synthetic_check in synthetic_checks:
         check = newrelic.synthetics.Monitor(f"{synthetic_check['name']}",
             name=f"{synthetic_check['name']}-monitor",
-            frequency=5,
+            frequency=1,
             locations=[
                 "AWS_US_EAST_1",
                 "AWS_US_EAST_2",

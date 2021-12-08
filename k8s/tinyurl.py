@@ -95,7 +95,7 @@ def deploy():
                             ],
                         ),
                         kubernetes.core.v1.ContainerArgs(
-                            image="662892719773.dkr.ecr.us-west-1.amazonaws.com/tinyurl:1",
+                            image="662892719773.dkr.ecr.us-west-1.amazonaws.com/tinyurl:100",
                             name="tinyurl",
                             ports=[kubernetes.core.v1.ContainerPortArgs(
                                 container_port=3000,

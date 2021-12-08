@@ -16,3 +16,11 @@ config:
     - name: tinyurl-web
       endpoint: https://tinyurl.web.scoady.io/status
       validation_string: '{"message":"it works","status":200}'
+  newrelic-synthetics:email: scoady@scoady.io
+  newrelic-synthetics:slack: newrelic
+  newrelic-synthetics:apiKey:
+    secure: >-
+      AAABADDLI81dHqiUVeYn0sJ1T4tWgsJS1A0xqUTh1K3n1bPWN36SQKLOGoOq+xC/NkFZqNDngL62t2aouARXSsxGq6Gf0K4p
+  newrelic-synthetics:adminApiKey:
+    secure: >-
+      AAABAFJ4dpD9iUBESXdfLuIFzPv3VUDVsb1sdS3RVUw/XtsQFtCc7JqzIhTPUKjBuo90TD7F3Y+6tThQVVvH2A==

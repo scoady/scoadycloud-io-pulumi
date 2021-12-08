@@ -180,7 +180,7 @@ def deploy():
                                     "memory": "256Mi",
                                 },
                                 requests={
-                                    "cpu": "300m",
+                                    "cpu": "200m",
                                     "memory": "256Mi",
                                 },
                             ),

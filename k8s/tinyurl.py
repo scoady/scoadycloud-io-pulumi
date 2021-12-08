@@ -176,7 +176,7 @@ def deploy():
                             ],
                             resources=kubernetes.core.v1.ResourceRequirementsArgs(
                                 limits={
-                                    "cpu": "300m",
+                                    "cpu": "400m",
                                     "memory": "256Mi",
                                 },
                                 requests={

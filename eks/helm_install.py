@@ -58,12 +58,12 @@ def deploy_newrelic_agent():
             create_namespace=True,
             disable_crd_hooks=False,
             disable_webhooks=False,
-            force_update=True,
             disable_openapi_validation=True,
             recreate_pods=True,
-            reuse_values=True,
+            reset_values=True,
             atomic=True,
             verify=False,
+            keyring="",
             values={}
     )
     if install_newrelic is not None:
@@ -81,12 +81,12 @@ def deploy_newrelic_agent():
                 create_namespace=True,
                 disable_crd_hooks=False,
                 disable_webhooks=False,
-                force_update=True,
                 recreate_pods=True,
-                reuse_values=True,
+                reset_values=True,
                 skip_crds=True,
                 verify=False,
                 atomic=True,
+                keyring="",
 		        timeout=600,
                 disable_openapi_validation=True,
                 values={
@@ -133,8 +133,9 @@ def deploy_newrelic_agent():
                 version="1.10.4",
                 disable_openapi_validation=True,
                 skip_crds=True,
-                force_update=True,
                 verify=False,
+                reset_values=True,
+                keyring="",
                 atomic=True,
 		timeout=600,
                 repository_opts=RepositoryOptsArgs(
@@ -157,6 +158,8 @@ def deploy_newrelic_agent():
             name="external-dns",
             version="5.5.0",
             verify=False,
+            reset_values=True,
+            keyring="",
             repository_opts=RepositoryOptsArgs(
                 repo="https://charts.bitnami.com/bitnami"
             ),

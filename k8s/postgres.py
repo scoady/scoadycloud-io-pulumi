@@ -23,12 +23,12 @@ def deploy():
         create_namespace=True,
         disable_crd_hooks=False,
         disable_webhooks=False,
-        force_update=True,
         disable_openapi_validation=True,
         recreate_pods=True,
         atomic=True,
-        replace=True,
         verify=False,
+        reset_values=True,
+        keyring="",
         values={
         "service" : {
             "annotations" : {

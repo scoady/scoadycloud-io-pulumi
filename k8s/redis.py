@@ -20,13 +20,16 @@ def deploy():
                 create_namespace=True,
                 disable_crd_hooks=False,
                 disable_webhooks=False,
-                force_update=True,
                 disable_openapi_validation=True,
                 recreate_pods=True,
-                reuse_values=True,
-                atomic=True,
                 verify=False,
+                reset_values=True,
+                keyring="",
+                atomic=True,
                 values={
+                    "auth" : {
+                        "password": "thisisatest"
+                    },
                     "metrics" : {
                         "podAnnotations" : {
                             "prometheus.io/scrape" : "true",

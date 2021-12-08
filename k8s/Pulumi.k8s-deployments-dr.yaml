@@ -12,5 +12,5 @@ config:
   k8s:deploy_redis: true
   k8s:deploy_kafka: false
   k8s:deploy_nginx: false
-  k8s:use_pulumi_release: true
+  k8s:use_pulumi_release: false
   k8s:deploy_tinyurl: true
